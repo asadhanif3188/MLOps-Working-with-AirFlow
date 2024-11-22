@@ -17,20 +17,29 @@ from datetime import datetime
 
 def start_number(**context):
     context['ti'].xcom_push(key='current_value', value=10)
+    print("Starting number: 10")
 
 def add_five(**context):
     current_value = context['ti'].xcom_pull(key = 'current_value')
-    context['ti'].xcom_push(key = 'add_five', value = current_value + 5)
+    new_value = current_value + 5
+    context['ti'].xcom_push(key = 'add_five', value = new_value)
+    print(f"After adding 5 ==> {current_value} + 5 = {new_value}")
 
 def multiply_by_two(**context):
     current_value = context['ti'].xcom_pull(key = 'add_five')
-    context['ti'].xcom_push(key = 'multiply_by_two', value = current_value * 2)
+    new_value = current_value * 2
+    context['ti'].xcom_push(key = 'multiply_by_two', value = new_value)
+    print(f"After multiplying by 2 ==> {current_value} * 2 = {new_value}")
 
 def subtract_three(**context):
     current_value = context['ti'].xcom_pull(key = 'multiply_by_two')
-    context['ti'].xcom_push(key = 'subtract_three', value = current_value - 3)
+    new_value = current_value - 3
+    context['ti'].xcom_push(key = 'subtract_three', value = new_value)
+    print(f"After subtracting 3 ==> {current_value} - 3 = {new_value}")
 
 def square(**context):
     current_value = context['ti'].xcom_pull(key = 'subtract_three')
-    context['ti'].xcom_push(key = 'square', value = current_value ** 2)
+    new_value = current_value ** 2
+    context['ti'].xcom_push(key = 'square', value = new_value)
+    print(f"Square of the result ==> {current_value} ** 2 = {new_value}")
 
