@@ -38,12 +38,14 @@ with DAG(
         new_value = number * 2
         print(f"After multiplying by 2 ==> {number} * 2 = {new_value}")
         return new_value
-    
+
+    @task    
     def subtract_three(number):
         new_value = number - 3
         print(f"After subtracting 3 ==> {number} - 3 = {new_value}")
         return new_value
     
+    @task
     def square(number):
         new_value = number ** 2
         print(f"Final result ==> {number} ** 2 = {new_value}")
@@ -56,4 +58,3 @@ with DAG(
     substracted_value = subtract_three(multiplied_value)
     squared_value = square(substracted_value)
 
-    
