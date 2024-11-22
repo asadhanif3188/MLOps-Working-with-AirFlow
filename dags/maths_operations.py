@@ -47,7 +47,7 @@ def square(**context):
 with DAG(
     dag_id = 'maths_operations_dag',
     start_date = datetime(2024, 1, 1),
-    schedule_interval = '@daily',
+    schedule_interval = '@once',
     catchup = False
 ) as dag:
 
