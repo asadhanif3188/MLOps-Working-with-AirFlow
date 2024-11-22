@@ -43,3 +43,44 @@ def square(**context):
     context['ti'].xcom_push(key = 'square', value = new_value)
     print(f"Square of the result ==> {current_value} ** 2 = {new_value}")
 
+# Define DAG
+with DAG(
+    dag_id = 'maths_operations_dag',
+    start_date = datetime(2024, 1, 1),
+    schedule_interval = '@daily',
+    catchup = False
+) as dag:
+
+    # Define tasks
+    start_task = PythonOperator(
+        task_id = 'start_number',
+        python_callable = start_number,
+        provide_context = True
+    )
+
+    add_five_task = PythonOperator(
+        task_id = 'add_five',
+        python_callable = add_five,
+        provide_context = True
+    )
+
+    multiply_by_two_task = PythonOperator(
+        task_id = 'multiply_by_two',
+        python_callable = multiply_by_two,
+        provide_context = True
+    )
+
+    subtract_three_task = PythonOperator(
+        task_id = 'subtract_three',
+        python_callable = subtract_three,
+        provide_context = True
+    )
+
+    square_task = PythonOperator(
+        task_id = 'square',
+        python_callable = square,
+        provide_context = True
+    )
+
+    # Define task dependencies
+    start_task >> add_five_task >> multiply_by_two_task >> subtract_three_task >> square_task
